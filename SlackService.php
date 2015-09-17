@@ -30,15 +30,12 @@ class SlackService
 		
 		$requestHandler = $this->_requestHandlerFactory->MakeRequestHandler($parsedRequest);
 		
-		if ($requestHandler->ValidateRequest($parsedRequest))
+		if (!$requestHandler->ValidateRequest($parsedRequest))
 		{
-			$response = $requestHandler->Handle($parsedRequest);
+			$requestHandler = $this->_requestHandlerFactory->MakeInvalidRequestHandler($parsedRequest);
 		}
-		else 
-		{
-			$response = $this->_requestHandlerFactory->MakeInvalidRequestHandler()->Handle($parsedRequest);
-		}
-		
+		$response = $requestHandler->Handle($parsedRequest);
+				
 		return $response; 
 	}
 }

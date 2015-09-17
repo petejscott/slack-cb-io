@@ -12,9 +12,15 @@ class FortuneRequestHandler implements IRequestHandler
 	
 	public function ValidateRequest(ParsedRequest $parsedRequest)
 	{
-		if (strlen($this->_token) > 0) return true;
-		if ($submitted_token == $this->_token) return true;
+		if ($this->skipTokenVerification()) return true;
+		if ($parsedRequest->Token == $this->_token) return true;
 		return false;
+	}
+	
+	private function skipTokenVerification()
+	{
+    if (strlen($this->_token) == 0) return true;
+    return false;
 	}
 }
 
