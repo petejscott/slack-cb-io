@@ -6,8 +6,6 @@ require_once('Interfaces/IRequestParser.php');
 
 require_once('Classes/RequestParser.php');
 require_once('Classes/ParsedRequest.php');
-require_once('Classes/RequestHandlers/TestRequestHandler.php');
-require_once('Classes/RequestHandlers/NullRequestHandler.php');
 require_once('Classes/RequestHandlerFactory.php');
 
 class SlackService 
