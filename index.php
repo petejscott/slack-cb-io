@@ -6,7 +6,8 @@ $slackService = new SlackService(
 	new RequestHandlerFactory(),
 	new RequestParser());
 
-$response = $slackService->SubmitRequest($_POST);
+$request = $_POST;
+$response = $slackService->SubmitRequest($request);
 
 echo $response;
 
