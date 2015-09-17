@@ -8,14 +8,43 @@ class RequestHandlerFactory implements IRequestHandlerFactory
 {
 	public function MakeRequestHandler(ParsedRequest $parsedRequest)
 	{
-		if ($parsedRequest->Channel == "test" && $parsedRequest->Trigger == "test")
+		$requestHandler = null;
+		
+		switch($parsedRequest->Trigger)
+		{
+			case "test":
+				$requestHandler = $this->makeTestRequestHandler($parsedRequest);
+				break;
+			case "cosine:":
+				$requestHandler = $this->makeCosineRequestHandler($parsedRequest);
+				break;
+			default:
+				$requestHandler = $this->makeDefaultRequestHandler($parsedRequest);
+				break;
+		}
+		
+		if ($requestHandler == null) $requestHandler = new NullRequestHandler();
+		return $requestHandler;
+	}
+	
+	private function makeTestRequestHandler(ParsedRequest $parsedRequest)
+	{
+		if ($parsedRequest->Channel == "test")
 		{
 			return new TestRequestHandler();
 		}
-		else if ($parsedRequest->Trigger == "cosine:" && strpos($parsedRequest->Text, "fortune") !== false)
+	}
+	
+	private function makeCosineRequestHandler(ParsedRequest $parsedRequest)
+	{
+		if (strpos($parsedRequest->Text, "fortune") !== false)
 		{
 			return new FortuneRequestHandler();
 		}
+	}
+	
+	private function makeDefaultRequestHandler(ParsedRequest $parsedRequest)
+	{
 		return new NullRequestHandler();
 	}
 }

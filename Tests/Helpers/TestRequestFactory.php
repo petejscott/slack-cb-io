@@ -1,6 +1,6 @@
 <?php
 
-class MockRequestFactory
+class TestRequestFactory
 {
 	public function MakeMockRequest()
 	{

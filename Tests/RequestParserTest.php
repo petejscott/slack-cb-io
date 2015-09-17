@@ -9,7 +9,7 @@ class RequestParserTest extends PHPUnit_Framework_TestCase
 {
 	public function testRequestParserGetsCorrectDataSet()
 	{	
-		$requestFactory = new MockRequestFactory();
+		$requestFactory = new TestRequestFactory();
 		$request = $requestFactory->MakeMockRequest();
 		
 		$requestParser = new RequestParser();

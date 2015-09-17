@@ -1,7 +1,6 @@
 <?php
 
 require_once('SlackService.php');
-require_once('Tests/Doubles/FakeRequestParser.php');
 require_once('Tests/Helpers/TestRequestFactory.php');
 
 class SlackServiceTest extends PHPUnit_Framework_TestCase
@@ -10,14 +9,14 @@ class SlackServiceTest extends PHPUnit_Framework_TestCase
 	{		
 		$expectedResponse = '{ "text" : "hello world" }';
 		
-		$requestFactory = new MockRequestFactory();
+		$requestFactory = new TestRequestFactory();
 		$request = $requestFactory->MakeMockRequest();
-		
-		$requestParser = new FakeRequestParser("test", "test");
+		$request['trigger_word'] = "test";
+		$request['channel_name'] = "test";
 		
 		$sut = new SlackService(
 			new RequestHandlerFactory(),
-			$requestParser);
+			new RequestParser());
 		
 		$response = $sut->SubmitRequest($request);
 		$this->assertEquals($expectedResponse, $response);
@@ -27,14 +26,14 @@ class SlackServiceTest extends PHPUnit_Framework_TestCase
 	{		
 		$expectedResponse = '{ "text" : "I received a request that I was unable to handle!" }';
 		
-		$requestFactory = new MockRequestFactory();
+		$requestFactory = new TestRequestFactory();
 		$request = $requestFactory->MakeMockRequest();
-		
-		$requestParser = new FakeRequestParser("Channel", "Trigger");
+		$request['trigger_word'] = "InvalidData";
+		$request['channel_name'] = "InvalidData";
 		
 		$sut = new SlackService(
 			new RequestHandlerFactory(),
-			$requestParser);
+			new RequestParser());
 		
 		$response = $sut->SubmitRequest($request);
 		$this->assertEquals($expectedResponse, $response);
