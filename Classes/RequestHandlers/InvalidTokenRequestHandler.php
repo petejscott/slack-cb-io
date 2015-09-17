@@ -1,10 +1,10 @@
 <?php 
 
-class NullRequestHandler implements IRequestHandler 
+class InvalidTokenRequestHandler implements IRequestHandler 
 {
 	public function Handle(ParsedRequest $parsedRequest)
 	{
-		return '{ "text" : "I received a request that I was unable to handle!" }';
+		return '{ "text" : "Invalid token received" }';
 	}
 	
 	public function ValidateRequest(ParsedRequest $parsedRequest)

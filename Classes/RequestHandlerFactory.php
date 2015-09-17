@@ -1,5 +1,6 @@
 <?php 
 
+require_once('Classes/RequestHandlers/InvalidTokenRequestHandler.php');
 require_once('Classes/RequestHandlers/TestRequestHandler.php');
 require_once('Classes/RequestHandlers/NullRequestHandler.php');
 require_once('Classes/RequestHandlers/FortuneRequestHandler.php');
@@ -25,6 +26,11 @@ class RequestHandlerFactory implements IRequestHandlerFactory
 		
 		if ($requestHandler == null) $requestHandler = new NullRequestHandler();
 		return $requestHandler;
+	}
+	
+	public function MakeInvalidRequestHandler(ParsedRequest $parsedRequest)
+	{
+		return new InvalidTokenRequestHandler();
 	}
 	
 	private function makeTestRequestHandler(ParsedRequest $parsedRequest)

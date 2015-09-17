@@ -10,7 +10,6 @@ require_once('Classes/RequestHandlerFactory.php');
 
 class SlackService 
 {
-	private $_token = "";
 	private $_requestHandlerFactory = null;
 	private $_requestParser = null;
 	
@@ -29,21 +28,18 @@ class SlackService
 	{
 		$parsedRequest = $this->_requestParser->Parse($request);		
 		
-		if (strlen($this->_token) > 0)
+		$requestHandler = $this->_requestHandlerFactory->MakeRequestHandler($parsedRequest);
+		
+		if ($requestHandler->ValidateRequest($parsedRequest))
 		{
-			$isValidRequest = $this->verifyToken($parsedRequest->Token);
-			if ($isValidRequest === false) return;
+			$response = $requestHandler->Handle($parsedRequest);
+		}
+		else 
+		{
+			$response = $this->_requestHandlerFactory->MakeInvalidRequestHandler()->Handle($parsedRequest);
 		}
 		
-		$requestHandler = $this->_requestHandlerFactory->MakeRequestHandler($parsedRequest);
-		$response = $requestHandler->Handle($parsedRequest);
 		return $response; 
-	}
-	
-	private function verifyToken($submitted_token)
-	{
-		if ($submitted_token == $this->_token) return true;
-		return false;
 	}
 }
 
