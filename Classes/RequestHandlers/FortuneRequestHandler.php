@@ -1,14 +1,13 @@
 <?php 
 
 class FortuneRequestHandler implements IRequestHandler 
-{
-	
-	private $_token = ""; 
+{	
+	private $_token = "";
 	
 	public function Handle(ParsedRequest $parsedRequest)
 	{
 		$fortune = `/usr/games/fortune`;
-		return '{ "text" : "'.$fortune.'" }';
+		return '{ "text" : '.json_encode($fortune).' }';
 	}
 	
 	public function ValidateRequest(ParsedRequest $parsedRequest)
