@@ -2,7 +2,7 @@
 
 interface IRequestHandlerFactory 
 {
-	public function MakeRequestHandler($parsedRequest);
+	public function MakeRequestHandler(ParsedRequest $parsedRequest);
 }
 
 ?>

@@ -2,7 +2,7 @@
 
 class RequestHandlerFactory implements IRequestHandlerFactory
 {
-	public function MakeRequestHandler($parsedRequest)
+	public function MakeRequestHandler(ParsedRequest $parsedRequest)
 	{
 		if ($parsedRequest->Channel == "test" && $parsedRequest->Trigger == "test")
 		{
