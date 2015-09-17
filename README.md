@@ -1,2 +1,2 @@
 # slack-cb-io
-Simple slack interaction via incoming/outgoing webhook integrations
+Simple slack interaction via outgoing webhook integrations
