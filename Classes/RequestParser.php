@@ -15,6 +15,7 @@ class RequestParser implements IRequestParser
 		$parsedRequest->Channel = $data['channel_name'];
 		$parsedRequest->Username = $data['user_name'];
 		$parsedRequest->Text = $data['text'];
+		$parsedRequest->Token = $data['token'];
 		return $parsedRequest;
 	}
 }
